@@ -1,0 +1,42 @@
+<title>Build a Reasoning Model — Visual Lab</title>
+<style>
+:root{--bg:#0E0C16;--bg2:#17142400;--ink:#EDEAF6;--soft:#BBB4D0;--dim:#8B86A8;--faint:#5D5877;--line:rgba(170,160,205,.14);--accent:#B892FF;
+--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box}body{margin:0;background:#0E0C16;color:var(--ink);font-family:var(--sans);line-height:1.7;font-size:17px}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}p{color:var(--soft)}
+.kick{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--serif);font-size:clamp(34px,6vw,56px);line-height:1.04;margin:14px 0 0;color:#fff;letter-spacing:-.02em}
+.dek{font-size:19px;color:var(--soft);margin-top:18px;max-width:62ch}
+.eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:48px 0 14px}
+.lcard{display:flex;gap:18px;align-items:center;background:#17142B;border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-decoration:none;color:inherit;margin-bottom:14px;transition:border-color .16s,transform .16s}
+.lcard:hover{border-color:var(--accent);transform:translateY(-2px)}
+.lg{font-size:30px}.lnum{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.lcard h3{font-family:var(--serif);font-size:22px;margin:5px 0 4px;color:#fff}.lcard p{margin:0;font-size:14.5px;color:var(--dim)}
+.go{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--accent);white-space:nowrap}
+.soon{opacity:.5;border-style:dashed}.soon .go{color:var(--faint)}
+footer{color:var(--faint);font-family:var(--mono);font-size:12px;padding:40px 0 60px;border-top:1px solid var(--line);margin-top:40px}
+</style>
+<div class="wrap">
+<header style="padding:70px 0 4px">
+  <div class="kick">Build a Reasoning Model · from first principles</div>
+  <h1>The Reasoning Lab.</h1>
+  <p class="dek">A hands-on companion to Raschka's <em>Build a Reasoning Model (From Scratch)</em> — one idea per session, each shown on a <b>real</b> reasoning model (Qwen3-0.6B) actually running, not diagrams. How a model learns to <em>think</em> before it answers.</p>
+</header>
+<div class="eye">Sessions</div>
+<a class="lcard" href="01-reasoning.html"><div class="lg">🧠</div>
+          <div><div class="lnum">Session 1</div><h3>What makes a model reason?</h3><p>Same Qwen3-0.6B, one flag: a direct answer vs a real &lt;think&gt; chain — and where each one wins, measured on real problems.</p></div>
+          <span class="go">Open →</span></a>
+<div class="eye">Coming next</div>
+<div class="lcard soon"><div class="lg">📈</div>
+          <div><div class="lnum">Session 2</div><h3>Chain-of-thought, measured</h3><p>Accuracy on a batch of problems, thinking off vs on — how much the reasoning actually buys.</p></div>
+          <span class="go">soon</span></div><div class="lcard soon"><div class="lg">🎲</div>
+          <div><div class="lnum">Session 3</div><h3>Many tries, one answer</h3><p>Sample several reasoning paths and vote (self-consistency) — watch accuracy climb.</p></div>
+          <span class="go">soon</span></div><div class="lcard soon"><div class="lg">🔁</div>
+          <div><div class="lnum">Session 4</div><h3>The model fixes itself</h3><p>Self-refinement: the model critiques its own answer and tries again.</p></div>
+          <span class="go">soon</span></div><div class="lcard soon"><div class="lg">🎯</div>
+          <div><div class="lnum">Session 5</div><h3>Teaching a model to reason (RL)</h3><p>Real GRPO checkpoints, before vs after — reward correct answers and watch it improve.</p></div>
+          <span class="go">soon</span></div><div class="lcard soon"><div class="lg">🧪</div>
+          <div><div class="lnum">Session 6</div><h3>Shrinking a reasoner (distillation)</h3><p>A big reasoner&#x27;s traces train a small model to think.</p></div>
+          <span class="go">soon</span></div>
+<footer>Built from first principles · companion to Raschka's <em>Build a Reasoning Model (From Scratch)</em> · every number is a real run of Qwen3-0.6B.</footer>
+</div>
