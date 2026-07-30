@@ -1,0 +1,111 @@
+<title>Distillation — learning to think by imitation</title>
+<style>
+:root{--bg:#0E0C16;--bg2:#17142B;--ink:#EDEAF6;--soft:#BBB4D0;--dim:#8B86A8;--faint:#5D5877;
+--line:rgba(170,160,205,.14);--accent:#B892FF;--good:#5FBF97;--rose:#E0748A;--amber:#E3A63A;
+--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;font-size:17px}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+p{color:var(--soft);margin:0 0 16px}b{color:var(--ink)}em{color:var(--ink);font-style:italic}
+.kick{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--serif);font-size:clamp(32px,6vw,50px);line-height:1.05;margin:14px 0 0;color:#fff;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:27px;margin:0 0 8px;color:#fff}
+.dek{font-size:19px;color:var(--soft);margin-top:18px}
+section{padding:44px 0;border-top:1px solid var(--line)}
+.eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.claim{font-family:var(--serif);font-size:21px;color:#fff;line-height:1.35;margin:0 0 4px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:12px}
+.chart{width:100%;height:auto;display:block;max-width:580px}
+.big{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0}
+.stat{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.stat .n{font-family:var(--serif);font-size:34px;line-height:1;color:#fff}.stat .l{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:6px}
+.stat.bad .n{color:var(--rose)}.stat.good .n{color:var(--good)}
+.q{font-family:var(--serif);font-size:17px;color:#fff;background:rgba(184,146,255,.1);border-left:3px solid var(--accent);border-radius:8px;padding:10px 14px;margin:6px 0 12px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:680px){.cols{grid-template-columns:1fr}}
+.mlab{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.thlab{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.thtext{font-family:var(--mono);font-size:11.5px;color:var(--soft);white-space:pre-wrap;line-height:1.55;max-height:300px;overflow:auto}
+.ans{font-family:var(--serif);font-size:15px;color:#fff;margin-top:8px}
+.trace{background:#0b0916;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.trace.bad{border-color:rgba(224,116,138,.3)}.trace.good{border-color:rgba(95,191,151,.35)}
+.mini{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px}
+.why{background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;padding:16px 20px;margin:18px 0}
+.why h3{margin:0 0 6px;font-size:12.5px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}.why p{margin:0;font-size:15.5px;color:var(--soft)}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:680px){.vs{grid-template-columns:1fr}}
+.vscard{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.vscard h4{font-family:var(--serif);font-size:19px;margin:0 0 6px;color:#fff}
+.vscard p{font-size:14.5px;margin:0}
+.aha{font-family:var(--serif);font-size:22px;line-height:1.42;color:#fff;border-left:3px solid var(--accent);padding-left:18px;margin:8px 0}
+.next{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:12px}
+ul.clean{list-style:none;padding:0;margin:16px 0}
+ul.clean li{position:relative;padding:10px 0 10px 26px;border-top:1px solid var(--line);color:var(--soft)}
+ul.clean li:before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono)}ul.clean li b{color:#fff}
+</style>
+<div class="wrap">
+<nav style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:14px 0;border-bottom:1px solid rgba(170,160,205,.16);margin-bottom:4px"><a href="index.html" style="color:#B892FF;text-decoration:none;font-weight:700">🧠 The Reasoning Lab</a><span style="margin-left:auto;display:flex;gap:16px"><a href="01-reasoning.html" style="color:#8B86A8;text-decoration:none">What makes a model reason?</a><a href="02-cot-measured.html" style="color:#8B86A8;text-decoration:none">Does thinking actually help?</a><a href="03-self-consistency.html" style="color:#8B86A8;text-decoration:none">Many tries, one answer</a><a href="04-self-refine.html" style="color:#8B86A8;text-decoration:none">Can it fix itself?</a><a href="05-verifier.html" style="color:#8B86A8;text-decoration:none">How do you grade a thought?</a><a href="06-grpo.html" style="color:#8B86A8;text-decoration:none">Teaching it to reason — and watching it cheat</a><a href="07-distill.html" style="color:#fff;font-weight:600;text-decoration:none">Learning to think by imitation</a></span></nav>
+<header style="padding:64px 0 8px">
+  <div class="kick">Build a Reasoning Model · Lab · Session 7 · finale</div>
+  <h1>Learning to think by imitation.</h1>
+  <p class="dek">Reinforcement learning grew reasoning from scratch — powerful, but finicky, and it can cheat. Here's the other road: if a <em>big</em> model already reasons beautifully, have it work through thousands of problems, and simply <b>train a small model to copy its thoughts</b>. No reward, no discovery — just imitation. This is distillation, and it's how most small reasoning models you'll meet are actually made.</p>
+</header>
+
+<section>
+  <div class="eye">The result — imitation, epoch by epoch</div>
+  <p class="claim">The same 20 GSM8K problems, same verifier. Copying a strong reasoner's traces lifts the small model steadily.</p>
+  <div class="big">
+    <div class="stat bad"><div class="n">10%</div><div class="l">base model<br>(before distillation)</div></div>
+    <div class="stat good"><div class="n">65%</div><div class="l">after epoch 2<br>of imitation</div></div>
+    <div class="stat"><div class="n">+55</div><div class="l">points, by copying<br>a teacher's reasoning</div></div>
+  </div>
+  <div class="card"><svg viewBox="0 0 560 195" class="chart" role="img"><line x1="42" y1="163" x2="544" y2="163" stroke="rgba(170,160,205,.10)"/><text x="36" y="166" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">0</text><line x1="42" y1="126" x2="544" y2="126" stroke="rgba(170,160,205,.10)"/><text x="36" y="129" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">25</text><line x1="42" y1="90" x2="544" y2="90" stroke="rgba(170,160,205,.10)"/><text x="36" y="92" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">50</text><line x1="42" y1="53" x2="544" y2="53" stroke="rgba(170,160,205,.10)"/><text x="36" y="56" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">75</text><line x1="42" y1="16" x2="544" y2="16" stroke="rgba(170,160,205,.10)"/><text x="36" y="19" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">100</text><polyline points="42.0,148.3 209.3,111.5 376.7,67.4 544.0,89.5" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="42.0" cy="148.3" r="4" fill="var(--accent)"/><text x="42.0" y="188" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">base</text><circle cx="209.3" cy="111.5" r="4" fill="var(--accent)"/><text x="209.3" y="188" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">epoch 1</text><circle cx="376.7" cy="67.4" r="4" fill="var(--accent)"/><text x="376.7" y="188" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">epoch 2</text><circle cx="544.0" cy="89.5" r="4" fill="var(--accent)"/><text x="544.0" y="188" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">epoch 3</text></svg>
+    <div class="mini">Accuracy vs distillation epoch — the base model trained to imitate DeepSeek-R1's worked-out solutions. It jumps from 10% to <b>65% at epoch 2</b>, eases to 50% by the last epoch (a touch of over-fitting) — but it never <b>collapses</b>. Even at the end it's still writing full solutions (~840 tokens), not the degenerate 7-token guesses RL fell into. The small model isn't discovering reasoning under reward; it's being shown, directly, what good reasoning looks like.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eye">How distillation works</div>
+  <div class="why">
+    <h3>Copy the thoughts, not just the answers</h3>
+    <p>A large, already-capable model solves a big set of problems, writing out its full <span style="font-family:var(--mono);color:var(--accent)">&lt;think&gt;</span> reasoning for each. That becomes a dataset of (question → worked solution). Then the small model is trained the ordinary way — predict the next token — on those solutions. It's plain imitation learning: no verifier, no reward, no sampling. The small model simply learns to produce the <em>kind</em> of step-by-step thinking the teacher produced, and that skill transfers to new problems.</p>
+  </div>
+</section>
+
+<section>
+  <div class="eye">Before and after — same problem</div>
+  <p class="q">“…A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?…” <span style="color:var(--amber);font-family:var(--mono);font-size:13px">correct: 3</span></p>
+  <div class="cols">
+    <div><div class="mlab" style="color:var(--rose)">base model</div><div class="trace bad"><div class="thtext">Answer: ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ ⚊ </div></div></div>
+    <div><div class="mlab" style="color:var(--good)">after distillation</div><div class="trace good"><div class="thlab">its reasoning</div><div class="thtext">Okay, let&#x27;s see. The problem says a robe takes 2 bolts of blue fiber and half that much white fiber. I need to find the total number of bolts. Hmm, so first, I should figure out how many bolts of white fiber are used. The problem says half that much white fiber. So if the blue fiber is 2 bolts, then the white fiber would be half of that. Let me check that again. Half of 2 is 1. So that makes sense. So the white fiber is 1 bolt. Now, the total bolts would be the sum of blue and white. So 2 (blue) plus 1 (white) equals 3. Wait, is that right? Let me make sure. If blue is 2 and white is 1, then 2 + 1 is 3. Yeah, that seems straightforward. So the total bolts needed is 3. I think that&#x27;s it. No other steps needed here.</div><div class="ans">The robe uses 2 bolts of blue fiber and half that amount of white fiber. Half of 2 bolts is 1 bolt of white fiber. Adding the blue and white fibers together gives \(2 + 1 = 3\) bolts in total. 
+
+\boxe</div></div></div>
+  </div>
+  <div class="mini">The base model can't produce a real solution. After distillation the <em>same-size</em> network thinks in clean, R1-style steps and lands the answer — a reasoning habit it absorbed wholesale from the teacher.</div>
+</section>
+
+<section>
+  <div class="eye">The two roads, side by side</div>
+  <p class="claim">We've now built a reasoning model both ways. They trade off.</p>
+  <div class="vs">
+    <div class="vscard"><h4>Reinforcement learning</h4><p style="color:var(--soft)">Discovers reasoning by trial and reward. Peaked at <b>50%</b> here — then <b style="color:var(--rose)">collapsed to 15%</b> without a leash. No teacher needed, but powerful and unstable; it's how the frontier <em>teachers</em> are trained.</p></div>
+    <div class="vscard"><h4>Distillation</h4><p style="color:var(--soft)">Imitates a teacher's thoughts. Climbed to <b style="color:var(--good)">65%</b> and stayed there — stable, simple, cheap. But it needs a strong teacher to exist first, and can't exceed what the teacher showed it.</p></div>
+  </div>
+  <div class="mini">RL creates new reasoning ability from a reward signal; distillation copies existing ability at a fraction of the cost. Real systems use both — RL to build a great teacher, distillation to spread it to small, fast models.</div>
+</section>
+
+<section>
+  <div class="eye">Why this matters — and what you've built</div>
+  <ul class="clean">
+    <li><b>Most small reasoning models are distilled.</b> Copying a strong reasoner's traces is the cheap, stable way to put reasoning into a model that fits on a phone.</li>
+    <li><b>Reasoning is a transferable skill, not a fixed trait.</b> The same 0.6B network went from hopeless to a real reasoner just by being shown what thinking looks like.</li>
+    <li><b>You've now seen the whole pipeline.</b> Prompt a model to think → measure it → sample and vote → let it self-correct → build a verifier → train with RL → distill. That's a reasoning model, end to end, on real runs.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="eye">The whole arc</div>
+  <p class="aha">We started with one flag that let a model think out loud, and ended by <em>training</em> reasoning into a small model two different ways. Thinking longer, thinking many times, checking itself, being graded, being rewarded, being taught — each session added one real idea, measured on a real model. A reasoning model isn't magic; it's a language model plus a scratchpad, a verifier, and a way to learn from being right. Now you've built every piece.</p>
+  <p class="next">Real run: <b>07-distill/colab_s7.py</b> · base vs DeepSeek-R1-distilled checkpoints (epoch 1, epoch 2, epoch 3) evaluated on GSM8K with the Session-5 verifier — every point a genuine run.<br>
+  That's the lab. Seven sessions, one small model, taught to think — from a single flag to full reinforcement learning and distillation.</p>
+</section>
+</div>
