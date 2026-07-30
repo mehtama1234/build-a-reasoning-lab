@@ -1,0 +1,93 @@
+<title>The model fixes itself?</title>
+<style>
+:root{--bg:#0E0C16;--bg2:#17142B;--ink:#EDEAF6;--soft:#BBB4D0;--dim:#8B86A8;--faint:#5D5877;
+--line:rgba(170,160,205,.14);--accent:#B892FF;--good:#5FBF97;--rose:#E0748A;--amber:#E3A63A;
+--serif:"Iowan Old Style",Palatino,Georgia,serif;--sans:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;font-size:17px}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+p{color:var(--soft);margin:0 0 16px}b{color:var(--ink)}em{color:var(--ink);font-style:italic}
+.kick{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--serif);font-size:clamp(32px,6vw,50px);line-height:1.05;margin:14px 0 0;color:#fff;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-size:27px;margin:0 0 8px;color:#fff}
+.dek{font-size:19px;color:var(--soft);margin-top:18px}
+section{padding:44px 0;border-top:1px solid var(--line)}
+.eye{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.claim{font-family:var(--serif);font-size:21px;color:#fff;line-height:1.35;margin:0 0 4px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:12px}
+.chart{width:100%;height:auto;display:block;max-width:560px}
+.big{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0}
+.stat{flex:1;min-width:130px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.stat .n{font-family:var(--serif);font-size:34px;line-height:1;color:#fff}.stat .l{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-top:6px}
+.stat.good .n{color:var(--good)}.stat.dim .n{color:var(--dim)}
+.tr{display:flex;align-items:center;gap:10px;margin:7px 0;flex-wrap:wrap}
+.trl{font-family:var(--mono);font-size:12.5px;color:var(--soft);width:120px}
+.pill{font-family:var(--mono);font-size:12px;border-radius:999px;padding:4px 12px;border:1px solid var(--line);color:var(--soft)}
+.pill.g{border-color:rgba(95,191,151,.5);color:var(--good)}.pill.r{border-color:rgba(224,116,138,.5);color:var(--rose)}
+.mini{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:10px}
+.why{background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;padding:16px 20px;margin:18px 0}
+.why h3{margin:0 0 6px;font-size:12.5px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}.why p{margin:0;font-size:15.5px;color:var(--soft)}
+.aha{font-family:var(--serif);font-size:22px;line-height:1.42;color:#fff;border-left:3px solid var(--accent);padding-left:18px;margin:8px 0}
+.next{font-family:var(--mono);font-size:13px;color:var(--dim);margin-top:12px}
+ul.clean{list-style:none;padding:0;margin:16px 0}
+ul.clean li{position:relative;padding:10px 0 10px 26px;border-top:1px solid var(--line);color:var(--soft)}
+ul.clean li:before{content:"→";position:absolute;left:0;color:var(--accent);font-family:var(--mono)}ul.clean li b{color:#fff}
+</style>
+<div class="wrap">
+<nav style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;padding:14px 0;border-bottom:1px solid rgba(170,160,205,.16);margin-bottom:4px"><a href="index.html" style="color:#B892FF;text-decoration:none;font-weight:700">🧠 The Reasoning Lab</a><span style="margin-left:auto;display:flex;gap:16px"><a href="01-reasoning.html" style="color:#8B86A8;text-decoration:none">What makes a model reason?</a><a href="02-cot-measured.html" style="color:#8B86A8;text-decoration:none">Does thinking actually help?</a><a href="03-self-consistency.html" style="color:#8B86A8;text-decoration:none">Many tries, one answer</a><a href="04-self-refine.html" style="color:#fff;font-weight:600;text-decoration:none">Can it fix itself?</a></span></nav>
+<header style="padding:64px 0 8px">
+  <div class="kick">Build a Reasoning Model · Lab · Session 4</div>
+  <h1>Can it fix itself?</h1>
+  <p class="dek">So far we've spent more compute in ways that don't need a teacher — think longer, think many times and vote. Here's the tempting next step: let the model <b>read its own answer, look for mistakes, and try again</b>. It's called self-refinement. It sounds like it should obviously work. We ran it on real problems to find out.</p>
+</header>
+
+<section>
+  <div class="eye">The result</div>
+  <h2>Here, it only helped</h2>
+  <p class="claim">Accuracy as the model revises its own answer, round after round.</p>
+  <div class="card"><svg viewBox="0 0 520 180" class="chart" role="img"><line x1="40" y1="150" x2="504" y2="150" stroke="rgba(170,160,205,.10)"/><text x="34" y="153" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">0</text><line x1="40" y1="116" x2="504" y2="116" stroke="rgba(170,160,205,.10)"/><text x="34" y="119" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">25</text><line x1="40" y1="82" x2="504" y2="82" stroke="rgba(170,160,205,.10)"/><text x="34" y="85" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">50</text><line x1="40" y1="48" x2="504" y2="48" stroke="rgba(170,160,205,.10)"/><text x="34" y="51" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">75</text><line x1="40" y1="14" x2="504" y2="14" stroke="rgba(170,160,205,.10)"/><text x="34" y="17" fill="#5D5877" font-size="10" font-family="monospace" text-anchor="end">100</text><line x1="40" y1="71" x2="504" y2="71" stroke="var(--good)" stroke-dasharray="4 4" opacity=".7"/><text x="504" y="67" fill="#5FBF97" font-size="10" font-family="monospace" text-anchor="end">if it kept its best round: 58%</text><polyline points="40.0,93.3 272.0,82.0 504.0,70.7" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="40.0" cy="93.3" r="3.5" fill="var(--accent)"/><text x="40.0" y="172" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">initial</text><circle cx="272.0" cy="82.0" r="3.5" fill="var(--accent)"/><text x="272.0" y="172" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">refine 1</text><circle cx="504.0" cy="70.7" r="3.5" fill="var(--accent)"/><text x="504.0" y="172" fill="#8B86A8" font-size="10" font-family="monospace" text-anchor="middle">refine 2</text></svg>
+    <div class="mini">Solid line: accuracy if you take the answer from each round. It starts at 42% and after 2 rounds of self-revision it's at 58% (+17 points). Whatever else is true, every revision that changed the answer changed it for the better.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eye">What each revision did</div>
+  <p class="claim">A revision can fix a wrong answer — or wreck a right one. Here's the tally.</p>
+  <div class="card"><div class="tr"><span class="trl">refinement 1</span><span class="pill g">fixed 1</span><span class="pill r">broke 0</span><span class="pill">net +1</span></div><div class="tr"><span class="trl">refinement 2</span><span class="pill g">fixed 1</span><span class="pill r">broke 0</span><span class="pill">net +1</span></div></div>
+  <div class="mini">The problem isn't that the model never fixes anything — it does. It's that without a way to <em>know</em> whether its current answer is right, it edits the good ones about as readily as the bad ones.</div>
+</section>
+
+<section>
+  <div class="eye">The striking part — it never wrecked a right answer</div>
+  <p class="claim">Every correct answer the model reached, it kept. Its final answer was as good as the best it produced along the way.</p>
+  <div class="big">
+    <div class="stat good"><div class="n">2</div><div class="l">wrong answers <b>fixed</b> by revising</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">right answers <b>broken</b> by revising</div></div>
+    <div class="stat"><div class="n">58%</div><div class="l">final = <b>best</b> it reached (58%)</div></div>
+  </div>
+  <div class="mini">That last stat is the good news hiding in a small number: the model's final answer (58%) matched the best answer it found in <em>any</em> round (58%) — it didn't second-guess itself into a worse answer even once here. On a re-read, it either caught a slip or left a correct answer alone.</div>
+</section>
+
+<section>
+  <div class="eye">The honest part — don't overread it</div>
+  <div class="why">
+    <h3>It worked here, but self-refinement is fragile</h3>
+    <p>Two cautions. First, this is a <b>small sample</b> (12 problems, 2 fixes) — a clean +17 points is encouraging, not proof, and the well-known result is that small models often <em>can't</em> reliably self-correct. Second, and more important: refinement only rescues errors the model can <em>notice on a second look</em> — here, catchable arithmetic slips. It does nothing for the errors it's <em>confident</em> about. Re-read a problem it fundamentally misunderstood (like the drying-shirts trap from Session 1) and it will “review” its work and re-affirm the same wrong answer. The model is still its own judge — and a judge can only catch the mistakes it's able to see.</p>
+  </div>
+</section>
+
+<section>
+  <div class="eye">Why this matters</div>
+  <ul class="clean">
+    <li><b>A second look is a real, cheap gain — up to a point.</b> When a mistake is a surface slip, re-reading catches it, and it rarely costs you a right answer. Free-ish accuracy.</li>
+    <li><b>But it's still bounded by self-judgment.</b> The model can only fix what it can recognize as broken. Its confident, systematic errors survive every re-read.</li>
+    <li><b>The one thing that would remove that ceiling is an outside verdict on right vs wrong.</b> And if we had that signal, we could do far more than let the model second-guess itself — we could <em>train</em> it.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="eye">Where we're headed</div>
+  <p class="aha">A second pass helped (42% → 58%) and cost nothing in broken answers — but it can only ever fix the mistakes the model already knows how to spot. To get past that, and to stop merely coaxing a fixed model at answer-time, we need an outside judge of right and wrong. That judge is the hinge of everything that follows — first to grade the model honestly, then to <em>train</em> it.</p>
+  <p class="next">Real run: <b>04-self-refine/colab_s4.py</b> · Qwen3-0.6B on a Colab L4, 12 problems, 2 rounds of self-critique each — every round a genuine generation.<br>
+  Next session: <b>how do you even grade a reasoning model?</b> — building the verifier that turns “an answer” into “right or wrong,” the signal everything downstream depends on.</p>
+</section>
+</div>
